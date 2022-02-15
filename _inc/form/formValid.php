@@ -2,28 +2,33 @@
 
 $GLOBALS['errors'] = [];
 
-function processForm():void
-{
-    if(isSubmitted() && isValid()){
-        echo 'Formulaire soumis et valide';
-    }
-}
-
 function isSubmitted():bool
 {
     return isset($_POST['submit']);
 }
 
-function isValid():bool
+function isValidLoginForm():bool
 {
     $constraints = [
         'email' => [
-            'isValid' => isEmailValid(getValues()['email']),
-            'message' => 'Email incorrect',
+            [
+                'isValid' => isNotBlank(getValues()['email']),
+                'message' => 'Veuillez entrer votre email',
+            ],
+            [
+                'isValid' => isEmailValid(getValues()['email']),
+                'message' => 'Email incorrect',
+            ],
         ],
         'password' => [
-            'isValid' => true,
-            'message' => 'Mot de passe incorrect',
+            [
+                'isValid' => isNotBlank(getValues()['password']),
+                'message' => 'Veuillez entrer votre mot de passe',
+            ],
+            [
+                'isValid' => checkUser(getValues()['email'], getValues()['password']),
+                'message' => 'Mot de passe incorrect',
+            ],
         ]
     ];
 
@@ -32,11 +37,19 @@ function isValid():bool
 
 function checkConstraints($constraints):bool
 {
+    // echo '<pre>';
+    // var_dump($constraints);
+    // echo '</pre>';die;
+
     $validation = true;
-    foreach($constraints as $key => $value){
-        if(!$value['isValid']){
-            $validation = false;
+    foreach($constraints as $constr){
+        foreach($constr as $value){
+            if(!$value['isValid']){
+                $GLOBALS['errors'][] = $value['message'];
+                $validation = false;
+            }
         }
+        
     }
     return $validation;
 }
@@ -48,7 +61,7 @@ function isNotBlank(string|null|array $field):bool
 
 function isEmailValid(string|null $value):bool
 {
-    return preg_match('/[\w|\d]+\@[\w|\d]+\.\w+/', $value);
+    return filter_var($value, FILTER_VALIDATE_EMAIL);
 }
 
 function getValues():array
@@ -56,4 +69,8 @@ function getValues():array
     return $_POST;
 }
 
+function getErrors()
+{
+    return $GLOBALS['errors'] ?? null;
+}
 ?>

@@ -1,16 +1,17 @@
 <?php
 require_once 'pdo.php';
-require_once '../form/formValid.php';
+require_once __DIR__ . '/../form/formValid.php';
 
-function getUserByEmail(string $email):array|bool
+function processForm():void
 {
-    $connection = dbConnection();
-    $sql = "select users.email, users.password from velibre.users where users.email = :email";
-    $query = $connection->prepare($sql);
-    $query->execute([
-        'email' => $email,
-    ]);
-    return $query->fetch() ?? false;
+    if(isSubmitted() && isValidLoginForm()){
+        $email = getValues()['email'];
+        $password = getValues()['password'];
+        if(checkUser($email, $password)){
+            sessionStartVariables($email, $password);
+            header('Location: stations.php');
+        }
+    }
 }
 
 function checkUser(string $email, string $password):bool
@@ -22,13 +23,23 @@ function checkUser(string $email, string $password):bool
     return true;
 }
 
-function processForm():void
+function getUserByEmail(string $email):array|bool
 {
-    if(isSubmitted() && isValidLoginForm()){
-        if(checkUser(getValues()['email'], getValues()['password'])){
-            echo 'Utilisateur authentifié';
-        }
-    }
+    $connection = dbConnection();
+    $sql = "select users.email, users.password from velibre.users where users.email = :email";
+    $query = $connection->prepare($sql);
+    $query->execute([
+        'email' => $email,
+    ]);
+
+    return $query->fetch() ?? false;
+}
+
+function sessionStartVariables(string $email, string $password):void
+{
+    $_SESSION['email'] = $email;
+    $_SESSION['password'] = $password;
+
 }
 
 ?>
