@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+:root {
+    --logo-color: #03989E;
+    --card-radius: 25px;
+}
 
 html {
     font-family: 'Montserrat', sans-serif;
 }
-a{
-    text-decoration: none;
-}
+a{ text-decoration: none; }
+h1{ font-size: 1.8rem; }
+h2{ font-size: 1.5rem; }
+h3{ font-size: 1.1rem; }
+
+
+/* -------- NAV --------- */
 nav {
     width: 100%;
     display: flex;
@@ -41,4 +49,79 @@ nav {
 }
 .mid-nav a:hover{
     background: #555;
+}
+
+/* -------- BODY --------- */
+.global-container{
+    width: 90%;
+    margin: 50px auto;
+}
+
+
+/* -------- MAP --------- */
+.map-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+#map{
+    width: 1100px;
+    height: 650px;
+}
+
+/* -------- PROFIL --------- */
+.profile-container{
+    float: left;
+    width: 25%;
+    margin-right: 50px;
+    padding: 50px;
+    border-radius: var(--card-radius);
+    border: 3px solid var(--logo-color);
+}
+/* .profile-image{
+    margin: auto;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: var(--logo-color);
+    border: 15px solid #444;
+} */
+.profile-image{
+    margin: auto;
+    position: relative;
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    padding-top: 100%;
+    background: var(--logo-color);
+}
+.profile-image>i{
+    color: #fff;
+}
+.profile-informations{
+    margin: auto;
+}
+.profile-informations>*{
+    border-bottom: 1px solid #000;
+    padding: 35px 0 5px;
+}
+.location-container{
+    overflow: hidden;
+}
+.location-container>h1{
+    text-align: center;
+    margin: 15px;
+}
+#liste-locations{
+    overflow:auto;
+    background: #dedede;
+    height: 450px;
+    border-radius: var(--card-radius);
+}
+#liste-locations>.content{
+    height: 800px;
+    padding: 50px;
+}
+#liste-locations>.content>p{
+    padding: 10px;
 }

@@ -19,10 +19,6 @@ processForm();
 
                 <input type="submit" name="submit" value='Connexion' >
                 <?php
-
-                    // echo '<pre>';
-                    // var_dump(getErrors());
-                    // echo '</pre>';die;
                     
                     if(getErrors() !== null && count(getErrors())!==0){
                         

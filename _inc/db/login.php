@@ -7,8 +7,10 @@ function processForm():void
     if(isSubmitted() && isValidLoginForm()){
         $email = getValues()['email'];
         $password = getValues()['password'];
+        $userInformations = getUserInformations($email);
         if(checkUser($email, $password)){
-            sessionStartVariables($email, $password);
+            $_SESSION['email'] = $email;
+            $_SESSION['password'] = $password;
             header('Location: stations.php');
         }
     }
@@ -26,7 +28,9 @@ function checkUser(string $email, string $password):bool
 function getUserByEmail(string $email):array|bool
 {
     $connection = dbConnection();
-    $sql = "select users.email, users.password from velibre.users where users.email = :email";
+    $sql = "select users.email, users.password, users.nom, users.prenom
+            from velibre.users 
+            where users.email = :email";
     $query = $connection->prepare($sql);
     $query->execute([
         'email' => $email,
@@ -35,11 +39,24 @@ function getUserByEmail(string $email):array|bool
     return $query->fetch() ?? false;
 }
 
-function sessionStartVariables(string $email, string $password):void
+function getUserInformations(string $email):void
 {
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $password;
+    $connection = dbConnection();
+    $sql = "select users.id, users.nom, users.prenom
+            from velibre.users 
+            where users.email = :email";
+    $query = $connection->prepare($sql);
+    $query->execute([
+        'email' => $email,
+    ]);
+    $result = $query->fetch();
+    // var_dump($result);
+    $_SESSION['user_id'] = (int) $result['id'];
+    $_SESSION['nom'] = $result['nom'];
+    $_SESSION['prenom'] = $result['prenom'];
+    // var_dump($_SESSION);die;
 
 }
+
 
 ?>

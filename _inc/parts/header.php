@@ -13,7 +13,10 @@
     
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/leaflet/leaflet.css" />
+
     <script src="https://kit.fontawesome.com/4549f0d59d.js" crossorigin="anonymous"></script>
+    <script src="/leaflet/leaflet.js"></script>
 
 </head>
 <body>

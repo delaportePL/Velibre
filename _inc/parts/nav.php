@@ -14,5 +14,6 @@
     </div>
     <div class="right-nav">
         <a href="/_inc/db/deconnexion.php">Déconnexion</a>
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
     </div>
 </nav>
