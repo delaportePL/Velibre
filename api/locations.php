@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once  __DIR__ . '/../_inc/db/pdo.php';
 header('Content-type: application/json'); 
 //Cela permet de passer d'un en-tête HTTP de type par défaut html à un format de type json 
@@ -12,8 +13,6 @@ foreach($locations as $location){
 }
 $jsonLocations = json_encode(array($actualLocations, $pastLocations));
 echo $jsonLocations;
-
-
 
 function getAllLocations(int $user_id):array|bool
 {
@@ -29,9 +28,5 @@ function getAllLocations(int $user_id):array|bool
     return $query->fetchAll() ?? false;
 }
 
-function createLocation(int $user_id):array|bool
-{
-    
-}
 
 ?>
