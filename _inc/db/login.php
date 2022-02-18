@@ -50,12 +50,10 @@ function getUserInformations(string $email):void
         'email' => $email,
     ]);
     $result = $query->fetch();
-    // var_dump($result);
+
     $_SESSION['user_id'] = (int) $result['id'];
     $_SESSION['nom'] = $result['nom'];
     $_SESSION['prenom'] = $result['prenom'];
-    // var_dump($_SESSION);die;
-
 }
 
 

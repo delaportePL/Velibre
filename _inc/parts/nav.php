@@ -13,7 +13,6 @@
         <a href="/profil.php">Mon profil</a>
     </div>
     <div class="right-nav">
-        <a href="/_inc/db/deconnexion.php">Déconnexion</a>
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <a href="/_inc/db/deconnexion.php">Déconnexion <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
 </nav>
